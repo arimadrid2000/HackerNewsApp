@@ -17,4 +17,8 @@ export class PostsService {
   getPostPerPage(page: number) {
     return this.http.get(`${this.apiUrl}?page=${page}`);
   }
+
+  filterPost(tech: string) {
+    return this.http.get(`${this.apiUrl}?query=${tech}&page=0`);
+  }
 }

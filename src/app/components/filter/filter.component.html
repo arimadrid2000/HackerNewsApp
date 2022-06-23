@@ -1,0 +1,6 @@
+<mat-form-field appearance="fill">
+    <mat-label>Toppings</mat-label>
+    <mat-select [formControl]="techSelected" (selectionChange)="onChange($event)">
+      <mat-option *ngFor="let tech of techList" [value]="tech">{{tech}}</mat-option>
+    </mat-select>
+  </mat-form-field>

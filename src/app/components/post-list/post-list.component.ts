@@ -16,11 +16,9 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.ps.getPostList().subscribe((res: any)=>{
-      console.log(res);
       const { hits, nbPages } = res;
       this.setPosts(hits);
       this.nbPages = nbPages;
-      console.log(hits);
     });
   }
 
@@ -33,9 +31,20 @@ export class PostListComponent implements OnInit {
     posts.forEach((hit: any, index: number) => {
       const { story_title, author, story_url, created_at } = hit;
       console.log(story_title, author, story_url, created_at);
+      if (story_title === null || author === null || story_url === null || created_at === null ){
+        posts.splice(index, 1);
+      }
     });
     // if (hits.length < 8)
     this.posts = posts;
+    console.log(this.posts);
+  }
+
+  filter(data: any) {
+    console.log(data, 'aqui');
+    const { hits, nbPages } = data;
+    this.setPosts(hits);
+    this.nbPages = nbPages;
   }
 
 }
