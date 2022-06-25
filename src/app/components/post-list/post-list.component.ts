@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { matSelectAnimations } from '@angular/material/select';
 import { PostsService } from '../../services/posts.service';
 
 @Component({
@@ -8,13 +9,21 @@ import { PostsService } from '../../services/posts.service';
 })
 export class PostListComponent implements OnInit {
 
-  public posts: Array<any> = [];
-  public nbPages: number = 0;
+  @Input() tab: any = '';
+
+  public posts: Array<any> = []; //declaration of the posts array
+  public nbPages: number = 0; //variable for paginator
+  public faves: Array<any> = [];
 
 
   constructor( private ps: PostsService) { }
 
   ngOnInit(): void {
+    this.getAllpost();
+  }
+
+  getAllpost() {
+    //call to services to get all posts
     this.ps.getPostList().subscribe((res: any)=>{
       const { hits, nbPages } = res;
       this.setPosts(hits);
@@ -22,29 +31,65 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  ngOnChanges(changes: any) {
+    const { tab } = changes;
+    if (tab.currentValue === 'faves' && this.faves.length > 0) {
+      // const faves =  this.posts.filter((post)=> post.fav);
+      this.posts = this.faves;
+    } else {
+      this.getAllpost();
+    }
+  }
+
+  //function to set posts when page is change
   replacePosts(posts: any) {
-    console.log(posts);
     this.setPosts(posts);
   }
 
+  //function to validate posts data and set only that with condition on the task
   setPosts(posts: any) {
-    posts.forEach((hit: any, index: number) => {
-      const { story_title, author, story_url, created_at } = hit;
-      console.log(story_title, author, story_url, created_at);
-      if (story_title === null || author === null || story_url === null || created_at === null ){
-        posts.splice(index, 1);
-      }
+    let today = new Date();
+    posts.forEach((post: any)=> {
+      let date = post.created_at;
+      date = new Date(date);
+      let diff = today.valueOf() - date.valueOf();
+      diff = diff/1000/60/60;
+      diff = Math.floor(diff);
+      post.time = diff;
+      post.fav = post.fav || false;
     });
-    // if (hits.length < 8)
+
+    posts = posts.filter(
+      (post: any) => 
+      post.story_title && 
+      post.author && 
+      post.story_url && 
+      post.created_at
+    );
     this.posts = posts;
-    console.log(this.posts);
   }
 
+  //function to filter data by tech
   filter(data: any) {
-    console.log(data, 'aqui');
     const { hits, nbPages } = data;
     this.setPosts(hits);
     this.nbPages = nbPages;
+  }
+
+  //function to open post url in a new tab
+  goTo(url: any) {
+    Object.assign(document.createElement('a'), {
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      href: url,
+    }).click();
+  }
+
+  setFav(index: number) {
+    const el = this.posts.find((post: any, i: number)=> i === index);
+    if (el) el.fav = !el.fav ;
+    if (el.fav === true) this.faves.push(el) || this.faves.filter((item)=> item !== el);
+    // localStorage.setItem(this.faves, 'faves');
   }
 
 }

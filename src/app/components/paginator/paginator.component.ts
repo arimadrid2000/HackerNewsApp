@@ -15,10 +15,13 @@ export class PaginatorComponent implements OnInit {
 
   public pages: Array<number> = [];
 
+  public page: number = 0;
+
+  public size: number = 0;
+
   constructor(private ps: PostsService) { }
 
   ngOnInit(): void {
-    
   }
 
   ngOnChanges(changes: any) {
@@ -27,15 +30,14 @@ export class PaginatorComponent implements OnInit {
       for (let i = nbPages.previousValue; i < nbPages.currentValue; i++) {
         this.pages.push(i);
       }
-      console.log(this.pages);
+      this.size = nbPages.currentValue;
     }
-    console.log(changes);
+    console.log(this.pages.length);
   }
 
   getPage(page: any) {
     this.ps.getPostPerPage(page).subscribe((res: any) => {
       this.posts.emit(res.hits);
-      console.log(res, page);
     });
   }
 

@@ -1,0 +1,8 @@
+<mdb-tabs [pills]="true" class="hn-pills" (activeTabChange)="changeTab($event)">
+    <mdb-tab title="All">
+        <app-post-list [tab]="tab"></app-post-list>
+    </mdb-tab>
+    <mdb-tab title="My Faves">
+        <app-post-list [tab]="tab"></app-post-list>
+    </mdb-tab>
+</mdb-tabs>
