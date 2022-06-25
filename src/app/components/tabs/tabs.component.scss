@@ -1,7 +1,5 @@
 :host ::ng-deep {
-    .hn-pills {
-        .nav-pills {
-            justify-content: center;
-        }
+    .hn-pills.nav-pills {
+        justify-content: center;
     }
 }

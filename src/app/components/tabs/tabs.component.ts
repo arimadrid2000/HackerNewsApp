@@ -15,7 +15,7 @@ export class TabsComponent implements OnInit {
   }
 
   changeTab(tab: any) {
-    this.tab = tab.index === 0 ? 'all' : 'faves';
+    this.tab = tab === 1 ? 'all' : 'faves';
   }
 
 }

@@ -6,9 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
-import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { PostListComponent } from './components/post-list/post-list.component';
@@ -33,10 +31,9 @@ import { TabsComponent } from './components/tabs/tabs.component';
     FormsModule,
     ReactiveFormsModule,
     MatTabsModule,
-    MdbTabsModule,
-    MdbCheckboxModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    NgbNavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

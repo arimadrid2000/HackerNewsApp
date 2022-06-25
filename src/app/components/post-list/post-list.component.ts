@@ -19,7 +19,7 @@ export class PostListComponent implements OnInit {
   constructor( private ps: PostsService) { }
 
   ngOnInit(): void {
-    this.getAllpost();
+    this.verifyTab(this.tab);
   }
 
   getAllpost() {
@@ -31,14 +31,21 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  ngOnChanges(changes: any) {
-    const { tab } = changes;
-    if (tab.currentValue === 'faves' && this.faves.length > 0) {
-      // const faves =  this.posts.filter((post)=> post.fav);
-      this.posts = this.faves;
+  verifyTab(tab: any) {
+    if (tab === 'faves') {
+      if (this.faves.length > 0) {
+        this.posts = this.faves;
+      } else {
+        this.posts = [];
+      }
     } else {
       this.getAllpost();
     }
+  }
+
+  ngOnChanges(changes: any) {
+    const { tab } = changes;
+    this.verifyTab(tab.currentValue);
   }
 
   //function to set posts when page is change
@@ -66,7 +73,7 @@ export class PostListComponent implements OnInit {
       post.story_url && 
       post.created_at
     );
-    this.posts = posts;
+    this.posts = this.tab === 'all' ? posts : this.faves;
   }
 
   //function to filter data by tech
@@ -89,7 +96,6 @@ export class PostListComponent implements OnInit {
     const el = this.posts.find((post: any, i: number)=> i === index);
     if (el) el.fav = !el.fav ;
     if (el.fav === true) this.faves.push(el) || this.faves.filter((item)=> item !== el);
-    // localStorage.setItem(this.faves, 'faves');
   }
 
 }
