@@ -11,13 +11,13 @@ export class FilterComponent implements OnInit {
 
   @Output() filterData = new EventEmitter<any>();
 
-  // toppings = new FormControl('');
-
-  // toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
   techSelected = new FormControl('');
 
-  public techList: string[] = ['angular', 'reactjs', 'vuejs'];
+  public techList: Array<any> = [
+    {label: 'Angular',name: 'angular', image: '../assets/icons/angular.png'},
+    {label: 'React',name: 'reactjs', image: '../assets/icons/react.png'},
+    {label: 'Vue',name: 'vuejs', image: '../assets/icons/vue.png'},
+  ];
 
   constructor(private ps: PostsService) { }
 
@@ -25,9 +25,7 @@ export class FilterComponent implements OnInit {
   }
 
   onChange($event: any) {
-    console.log('console', $event.value);
     this.ps.filterPost($event.value).subscribe((resp: any) => {
-      console.log(resp, 'filtro');
       this.filterData.emit(resp);
     });
   }

@@ -1,3 +1,11 @@
-<div>
-    <button type="button" *ngFor="let item of pages; let i = index" (click)="getPage(item)"> {{ i + 1 }}</button>
-</div>
+
+<ngb-pagination
+    class="d-flex justify-content-center"
+    [collectionSize]="(size * 10) - 1"
+    [maxSize]="9"
+    [(page)]="page"
+    [rotate]="true" 
+    [ellipses]="false" 
+    [boundaryLinks]="true"
+    (pageChange)="getPage($event)">
+</ngb-pagination>
