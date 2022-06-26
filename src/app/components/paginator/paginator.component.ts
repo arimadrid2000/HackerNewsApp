@@ -32,7 +32,6 @@ export class PaginatorComponent implements OnInit {
       }
       this.size = nbPages.currentValue;
     }
-    console.log(this.pages.length);
   }
 
   getPage(page: any) {

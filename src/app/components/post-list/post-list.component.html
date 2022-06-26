@@ -1,5 +1,4 @@
 <app-filter (filterData)="filter($event)"></app-filter>
-
 <div class="row justify-content-around m-4">
     <div class="col-md-6 col-sm-12 card-group p-2" *ngFor="let item of posts; let i = index">
         <div class="card mb-3 card-hover">
@@ -25,19 +24,6 @@
           </div>
     </div>
 </div>
-
-<!-- <div class="container">
-    <div *ngFor="let item of posts" class="post-card" (click)="goTo(item.story_url)">
-        <p class="post-card-created">
-            {{ item.created_at }} 
-            <span class="post-card-author">
-                {{ item.author }}
-            </span>
-        </p>
-        <p class="post-card-title"> {{ item.story_title }} </p>
-        <p class="post-card-url"> {{ item.story_url }} </p>
-    </div>
-</div> -->
 
 <app-paginator [nbPages]="nbPages" (posts)="replacePosts($event)"></app-paginator>
 

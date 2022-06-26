@@ -1,8 +1,25 @@
-<mdb-tabs [pills]="true" class="hn-pills" (activeTabChange)="changeTab($event)">
+<!-- <mdb-tabs [pills]="true" class="hn-pills" (activeTabChange)="changeTab($event)">
     <mdb-tab title="All">
         <app-post-list [tab]="tab"></app-post-list>
     </mdb-tab>
     <mdb-tab title="My Faves">
         <app-post-list [tab]="tab"></app-post-list>
     </mdb-tab>
-</mdb-tabs>
+</mdb-tabs> -->
+
+<nav ngbNav #nav="ngbNav" class="nav-pills hn-pills" (activeIdChange)="changeTab($event)">
+    <ng-container [ngbNavItem]="1">
+      <a ngbNavLink>All</a>
+      <ng-template ngbNavContent>
+        <app-post-list [tab]="tab"></app-post-list>
+      </ng-template>
+    </ng-container>
+    <ng-container [ngbNavItem]="2">
+      <a ngbNavLink>My Faves</a>
+      <ng-template ngbNavContent>
+        <app-post-list [tab]="tab"></app-post-list>
+      </ng-template>
+    </ng-container>
+  </nav>
+  
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>

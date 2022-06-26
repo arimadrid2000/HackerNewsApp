@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class PostsService {
 
   //url to connect with hn api
-  public apiUrl = 'http://hn.algolia.com/api/v1/search_by_date';
+  public apiUrl = 'https://hn.algolia.com/api/v1/search_by_date';
 
   constructor( private http: HttpClient) { }
 
